@@ -33,7 +33,10 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'uaa_client',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'tock.apps.TockAppConfig',
     'projects.apps.ProjectsAppConfig',
     'hours.apps.HoursAppConfig',
@@ -76,15 +79,26 @@ MIDDLEWARE = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'uaa_client.middleware.UaaRefreshMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'tock.middleware.AutoLogout',
 )
 
 AUTHENTICATION_BACKENDS = (
-    'tock.remote_user_auth.TockUserBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
 )
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+SITE_ID = 1
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'US/Eastern'
@@ -116,18 +130,9 @@ try:
 except IOError:
     VERSION = 'main'
 
-UAA_APPROVED_DOMAINS = {
-    'gsa.gov',
-}
-UAA_CLIENT_ID = env.get_credential('UAA_CLIENT_ID', None)
-UAA_CLIENT_SECRET = env.get_credential('UAA_CLIENT_SECRET', None)
-UAA_AUTH_URL = 'https://login.fr.cloud.gov/oauth/authorize'
-UAA_TOKEN_URL = 'https://uaa.fr.cloud.gov/oauth/token'  # nosec
-UAA_LOGOUT_URL = 'https://login.fr.cloud.gov/logout.do'
-
 AUTO_LOGOUT_DELAY_MINUTES = 60
 
-TOCK_CHANGE_REQUEST_FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSe5RDFOlyWm0IXv7_eXjZ3CEjaGj2CmM-_TNgqwMjdspfQz7Q/viewform'
+TOCK_CHANGE_REQUEST_FORM = '#'
 
 # enable HSTS according to https://cyber.dhs.gov/bod/18-01/
 SECURE_HSTS_SECONDS = 31536000

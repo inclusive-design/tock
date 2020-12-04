@@ -3,7 +3,7 @@ from django.conf import settings
 
 
 def version_url(request):
-    base_url = 'https://github.com/18F/tock/'
+    base_url = 'https://github.com/inclusive-design/tock/'
     name = settings.VERSION
     response = {
         'x_tock_release_url': '%stree/%s' % (base_url, name),
