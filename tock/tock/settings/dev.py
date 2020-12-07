@@ -25,6 +25,9 @@ DATABASES['default'] = dj_database_url.config(
     default='postgres://tock:tock@localhost/tock'
 )
 
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'tmp/email')
+
 INSTALLED_APPS += ('nplusone.ext.django', )
 MIDDLEWARE += ('nplusone.ext.django.NPlusOneMiddleware', )
 

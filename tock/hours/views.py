@@ -24,7 +24,6 @@ from employees.models import UserData
 from rest_framework import serializers
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
-from tock.remote_user_auth import email_to_username
 from tock.utils import IsSuperUserOrSelf, PermissionMixin
 
 from .forms import (ReportingPeriodForm, ReportingPeriodImportForm,
@@ -406,7 +405,7 @@ class ReportingPeriodBulkImportView(PermissionMixin, FormView):
 
             for line_item in c:
                 user, created = get_user_model().objects.get_or_create(
-                    username=email_to_username(line_item['Tock Name'].lower()))
+                    username=line_item['Tock Name'].lower())
 
                 timecard, created = Timecard.objects.get_or_create(
                     user=user, reporting_period=reporting_period)

@@ -1,0 +1,181 @@
+[
+  {
+    "model": "organizations.organization",
+    "pk": 1,
+    "fields": {
+      "name": "IDRC",
+      "description": "Inclusive Design Research Centre",
+      "active": "True"
+    }
+  },
+  {
+    "model": "organizations.unit",
+    "pk": 1,
+    "fields": {
+      "name": "Staff",
+      "slug": "staff",
+      "description": "IDRC staff",
+      "org": "1"
+    }
+  },
+  {
+    "model": "organizations.unit",
+    "pk": 2,
+    "fields": {
+      "name": "Contractors",
+      "slug": "contractors",
+      "description": "IDRC contractors",
+      "org": "1"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "testpassword",
+      "last_login": "2020-12-04T00:00:00.000Z",
+      "is_superuser": true,
+      "username": "iris",
+      "first_name": "Iris",
+      "last_name": "Neher",
+      "email": "ineher@ocadu.ca",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-12-04T00:00:00.000Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "testpassword",
+      "last_login": "2020-12-04T00:00:00.000Z",
+      "is_superuser": false,
+      "username": "michelle",
+      "first_name": "Michelle",
+      "last_name": "D'Souza",
+      "email": "mdsouza@ocadu.ca",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-12-04T00:00:00.000Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "testpassword",
+      "last_login": "2020-12-04T00:00:00.000Z",
+      "is_superuser": false,
+      "username": "ned",
+      "first_name": "Ned",
+      "last_name": "Zimmerman",
+      "email": "nzimmerman@ocadu.ca",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-12-04T00:00:00.000Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "employees.userdata",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "start_date": "2020-12-04",
+      "end_date": null,
+      "current_employee": true,
+      "unit": 1,
+      "profit_loss_account": null,
+      "is_aws_eligible": false,
+      "organization": 1
+    }
+  },
+  {
+    "model": "employees.userdata",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "start_date": "2020-12-04",
+      "end_date": null,
+      "current_employee": true,
+      "unit": 1,
+      "profit_loss_account": null,
+      "is_aws_eligible": false,
+      "organization": 1
+    }
+  },
+  {
+    "model": "employees.userdata",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "start_date": "2020-12-04",
+      "end_date": null,
+      "current_employee": true,
+      "unit": 1,
+      "profit_loss_account": null,
+      "is_aws_eligible": false,
+      "organization": 1
+    }
+  },
+  {
+    "model": "hours.reportingperiod",
+    "pk": 1,
+    "fields": {
+      "start_date": "2020-12-06",
+      "end_date": "2020-12-12",
+      "exact_working_hours": 35,
+      "max_working_hours": 50,
+      "min_working_hours": 35,
+      "message": "",
+      "message_style": "info",
+      "message_title": "",
+      "message_enabled": false,
+      "holiday_prefills": []
+    }
+  },
+  {
+    "model": "projects.agency",
+    "pk": 1,
+    "fields": {
+      "name": "IDRC"
+    }
+  },
+  {
+    "model": "projects.accountingcode",
+    "pk": 1,
+    "fields": {
+      "code": "IDRC",
+      "agency": 1,
+      "office": "IDRC",
+      "billable": true,
+      "flat_rate": false
+    }
+  },
+  {
+    "model": "projects.project",
+    "pk": 1,
+    "fields": {
+      "name": "Flexible Learning for Open Education",
+      "mbnumber": "",
+      "accounting_code": 1,
+      "description": "",
+      "start_date": null,
+      "end_date": null,
+      "active": true,
+      "notes_required": false,
+      "notes_displayed": false,
+      "agreement_URL": "",
+      "profit_loss_account": null,
+      "project_lead": null,
+      "organization": null,
+      "alerts": []
+    }
+  }
+]

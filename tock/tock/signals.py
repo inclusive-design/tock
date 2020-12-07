@@ -1,7 +1,9 @@
 import logging
+import datetime
 
 from django.contrib.auth.signals import user_logged_in, user_logged_out, \
     user_login_failed
+from allauth.account.signals import user_signed_up
 from django.db.models.signals import post_save, m2m_changed
 
 logger = logging.getLogger('tock')
@@ -19,6 +21,22 @@ def failed_login(sender, credentials, request, **kwargs):
     logger.info(f'Unsuccessful login attempt by {credentials}.')
 
 
+def verify_userdata(request, user, **kwargs):
+    from employees.models import UserData
+    from django.contrib.auth.models import User
+
+    try:
+        user = UserData.objects.get(user=user)
+    except UserData.DoesNotExist:
+        logger.warn(
+            f'Creating UserData for {user.username}.'
+        )
+        UserData.objects.create(
+            user=user,
+            start_date=datetime.date.today(),
+        )
+
+
 def adminlog_post_save(sender, instance, **kwargs):
     from django.contrib.admin.models import ADDITION, CHANGE, DELETION
     if instance.action_flag == ADDITION:
@@ -34,6 +52,7 @@ def adminlog_post_save(sender, instance, **kwargs):
         logger.info(
             f'[admin-log] {instance.user} deleted {instance.content_type} {instance.object_repr} @ {instance.get_admin_url()}.'
         )
+
 
 def log_m2m_change(sender, instance, action, reverse, model, pk_set, **kwargs):
     model_name = model._meta.verbose_name_plural
@@ -54,6 +73,7 @@ def log_m2m_change(sender, instance, action, reverse, model, pk_set, **kwargs):
         logger.info(
             f'[account-management] All {model_name} removed from {instance_model} {instance}.'
         )
+
 
 def setup_signals():
     from django.contrib.auth.models import User, Group
@@ -91,3 +111,4 @@ def setup_signals():
         sender=Group.permissions.through,
         dispatch_uid="tock_log_m2m_changed_groups_permissions"
     )
+    user_signed_up.connect(verify_userdata)
